@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import requests
 import re
+from game import *
 
 class MathExpressionGenerator:
     def __init__(self):
@@ -23,14 +24,18 @@ class MathExpressionGenerator:
     def generate_expressions(self):
         num_cnt = int(self.num_cnt_entry.get())
         level = int(self.level_entry.get())
-        response = requests.get(f"http://localhost:5000/expressions?num_cnt={num_cnt}&level={level}")
-        if response.status_code == 200:
-            self.answer = response.json()["expression"]
-            nums = re.findall(r'\d+', self.answer.split('=')[0])
-            test=f",\t".join(nums)        
-            self.result_text.insert(tk.END, f"{test}\n")
-        else:
-            messagebox.showerror("Error", "Failed to generate expressions")
+        # response = requests.get(f"http://localhost:5000/expressions?num_cnt={num_cnt}&level={level}")
+        # if response.status_code == 200:
+        #     self.answer = response.json()["expression"]
+        #     nums = re.findall(r'\d+', self.answer.split('=')[0])
+        #     test=f",\t".join(nums)        
+        #     self.result_text.insert(tk.END, f"{test}\n")
+        # else:
+        #     messagebox.showerror("Error", "Failed to generate expressions")
+        self.answer=generate(num_cnt,level)
+        nums = re.findall(r'\d+', self.answer.split('=')[0])
+        test=f",\t".join(nums)
+        self.result_text.insert(tk.END, f"{test}\n")
 
     def run(self):
         self.num_cnt_label.grid(row=0, column=0)
