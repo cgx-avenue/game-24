@@ -1,22 +1,26 @@
 import tkinter as tk
-from tkinter import messagebox
-import requests
 import re
 from game import *
 
 class MathExpressionGenerator:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Math Expression Generator")
+        self.root.title("24点游戏")
+        self.root.geometry("1200x600") # Set the window size to 400x200
+        
+        # Create a frame to hold the input fields and buttons
+        self.frame = tk.Frame(self.root, bg="gray", highlightthickness=0)
+        self.frame.pack(fill=tk.BOTH, expand=True)
+        
         self.answer=""
-        self.num_cnt_label = tk.Label(self.root, text="Number of random numbers:")
-        self.num_cnt_entry = tk.Entry(self.root,textvariable=tk.StringVar(value='4'))
-        self.level_label = tk.Label(self.root, text="Difficulty level (1 or 2):")
-        self.level_entry = tk.Entry(self.root,textvariable=tk.StringVar(value='1'))
-        self.generate_button = tk.Button(self.root, text="Generate Expressions", command=self.generate_expressions)
-        self.result_text = tk.Text(self.root)
-        self.show_button = tk.Button(self.root, text="Show answer", command=self.show_answer)
-        self.answer_text=tk.Text(self.root)
+        self.num_cnt_label = tk.Label(self.frame, text="数字个数:", font=("Arial", 14))
+        self.num_cnt_entry = tk.Entry(self.frame,textvariable=tk.StringVar(value='4'), font=("Arial", 14))
+        self.level_label = tk.Label(self.frame, text="难度 (1 or 2):", font=("Arial", 14))
+        self.level_entry = tk.Entry(self.frame,textvariable=tk.StringVar(value='1'), font=("Arial", 14))
+        self.generate_button = tk.Button(self.frame, text="生成数字", command=self.generate_expressions, font=("Arial", 14))
+        self.result_text = tk.Text(self.frame, width=40, font=("Arial", 14))
+        self.show_button = tk.Button(self.frame, text="显示答案", command=self.show_answer, font=("Arial", 14))
+        self.answer_text=tk.Text(self.frame, width=40, font=("Arial", 14))
         
     def show_answer(self):
         self.answer_text.insert(tk.END,f"{self.answer}\n")
